@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine? ❤️</title>
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Import Map for Three.js -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+
+<body>
+  <!-- Section 1: Intro -->
+  <section class="intro prominent-glass">
+   <h1>A Love Story <br> <br> Written in the Stars</h1>
+  </section>
+
+  <!-- Section 2: Product Overview with Animations -->
+  <section class="product-overview">
+    <!-- Header 1: Slides in first -->
+    <div class="header-1">
+      <h1>Once Upon a Time</h1>
+    </div>
+
+    <!-- Header 2: Slides across screen -->
+    <div class="header-2">
+      <h1>I Found You</h1>
+    </div>
+
+    <!-- Black circular mask -->
+    <div class="circular-mask"></div>
+
+    <!-- Tooltips Wrapper -->
+    <div class="tooltips">
+      <!-- Tooltip #1 -->
+      <div class="tooltip">
+        <div class="icon">
+          <ion-icon name="heart-dislike"></ion-icon>
+        </div>
+        <div class="divider"></div>
+        <div class="title">
+          <h2>Lost & Broken</h2>
+        </div>
+        <div class="description">
+          <p>
+            A heart wandering through endless nights, searching for something it couldn't name. Incomplete, yearning, waiting for a miracle.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tooltip #2 -->
+      <div class="tooltip">
+        <div class="icon">
+          <ion-icon name="star"></ion-icon>
+        </div>
+        <div class="divider"></div>
+        <div class="title">
+          <h2>Then You Appeared</h2>
+        </div>
+        <div class="description">
+          <p>
+            Like a constellation lighting up the dark void. You became my north star, my guide, my everything I didn't know I needed.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tooltip #3 -->
+      <div class="tooltip">
+        <div class="icon">
+          <ion-icon name="heart"></ion-icon>
+        </div>
+        <div class="divider"></div>
+        <div class="title">
+          <h2>You Healed Me</h2>
+        </div>
+        <div class="description">
+          <p>
+            Every broken piece found its place. You showed me what love truly means - healing, growing, becoming whole together.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tooltip #4 -->
+      <div class="tooltip">
+        <div class="icon">
+          <ion-icon name="infinite"></ion-icon>
+        </div>
+        <div class="divider"></div>
+        <div class="title">
+          <h2>Forever & Always</h2>
+        </div>
+        <div class="description">
+          <p>
+            In every universe, across every timeline, through every dimension - I would choose you. Will you be my Valentine?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Model Container -->
+    <div class="model-container">
+    </div>
+  </section>
+
+  <!-- Section 3: Outro -->
+ <section class="outro">
+
+  <!-- Soft Question -->
+  <div class="outro-question">
+    <h1>So one last question arises after all...</h1>
+  </div>
+
+  <!-- Outro 3D Model -->
+  <div class="outro-model-container"></div>
+
+  <!-- Final message overlay -->
+<div class="outro-final-message">
+  <h1>Will you be my Valentine? <span class="heart">❤️</span></h1>
+</div>
+
+
+</section>
+
+  <!-- Icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Main Script -->
+  <script type="module" src="./script.js"></script>
+
+</body>
+
+</html>

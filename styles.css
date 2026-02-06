@@ -1,0 +1,1176 @@
+@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+body {
+  font-family: "PP Neue Montreal", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(circle at 50% 0%, #2a002f 0%, transparent 55%),
+    radial-gradient(circle at 0% 100%, #4a0f4f 0%, transparent 60%),
+    radial-gradient(circle at 100% 50%, #7a1b3a 0%, transparent 60%),
+    linear-gradient(180deg, #000000, #000000);
+
+
+  color: #fce7f3;
+}
+
+
+.prominent-glass {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.75),
+      rgba(255,255,255,0.45)
+    );
+
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+
+ 
+}
+
+
+/* TYPOGRAPHY */
+h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.125;
+  letter-spacing: -0.03rem;
+}
+
+p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* SECTION BASE */
+section {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* INTRO */
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: #2b2b2b;
+  padding: 2rem;
+  height: 100vh;
+}
+
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(255,192,203,0.35), transparent 65%);
+
+  filter: blur(120px);
+}
+
+
+.intro h1 {
+  position: relative;
+  text-align: center;
+  max-width: 90%;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+
+  color: white;
+
+
+}
+
+
+/* PRODUCT OVERVIEW */
+.product-overview {
+  position: relative;
+  height: 100vh;
+  background: radial-gradient(circle at top, #0d0510 0, #0d0510 35%, #000 100%);
+  color: #fce7f3;
+}
+
+/* OUTRO - Same structure as product-overview */
+.outro {
+  position: relative;
+  height: 100vh;
+  background: radial-gradient(circle at top, #0d0510 0, #0d0510 35%, #000 100%);
+  color: #fce7f3;
+}
+.outro::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 30% 30%, rgba(180,80,255,0.45), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(120,0,180,0.55), transparent 65%);
+
+  filter: blur(160px);
+}
+.outro::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at center,
+      rgba(0,0,0,0.25) 0%,
+      rgba(0,0,0,0.9) 70%,
+      rgba(0,0,0,1) 100%);
+}
+
+/* 3D MODEL CONTAINER - RESPONSIVE SCALING */
+.model-container,
+.outro-model-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  pointer-events: none;
+opacity: 0;
+  visibility: hidden;
+}
+
+/* Hide outro model container by default */
+.outro-model-container {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.model-container canvas,
+.outro-model-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* HEADER 1 - Product Overview */
+.header-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  z-index: 0;
+  background: radial-gradient(circle at top left, #0d0510 0, #0d0510 40%, #000 100%);
+  overflow: hidden;
+}
+.header-1 h1 {
+  font-size: clamp(10rem, 15vw, 16.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: #fce7f3;
+
+  flex-shrink: 0;
+}
+
+
+/* OUTRO HEADER 1 - Same as product overview */
+.outro-header-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  z-index: 0;
+  background: radial-gradient(circle at top left, #0d0510 0, #0d0510 40%, #000 100%);
+}
+
+.outro-header-1 h1 {
+  font-size: clamp(10rem, 15vw, 16.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: #fce7f3;
+}
+
+/* HEADER 2 - Product Overview */
+.header-2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateX(150%);
+}
+
+.header-2 h1 {
+  font-size: clamp(3rem, 15vw, 14.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-align: center;
+  color: transparent;
+  background-image: linear-gradient(
+    120deg,
+    #f472b6,
+    #ec4899,
+    #db2777,
+    #be185d,
+    #f472b6
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 32px rgba(236, 72, 153, 0.7));
+}
+
+/* OUTRO HEADER 2 - Same gradient styling */
+.outro-header-2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateX(150%);
+}
+
+.outro-header-2 h1 {
+  font-size: clamp(3rem, 15vw, 14.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-align: center;
+  color: transparent;
+  background-image: linear-gradient(
+    120deg,
+    #f472b6,
+    #ec4899,
+    #db2777,
+    #be185d,
+    #f472b6
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 32px rgba(236, 72, 153, 0.7));
+}
+
+/* CIRCULAR MASK */
+.circular-mask,
+.outro-circular-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(244, 114, 182, 0.32) 0, transparent 45%),
+    radial-gradient(circle at 50% 70%, rgba(236, 72, 153, 0.3) 0, transparent 52%),
+    #0d0510;
+  clip-path: circle(0% at 50% 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* TOOLTIP GRID */
+.tooltips,
+.outro-tooltips {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem;
+  z-index: 150;
+ pointer-events: auto;
+}
+
+/* TOOLTIP CARD - glassmorphism, default hidden */
+.tooltip,
+.outro-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+  color: #fce7f3;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at top left, rgba(45, 27, 61, 0.96), rgba(13, 5, 16, 0.96));
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  box-shadow:
+    0 0 40px rgba(45, 27, 61, 0.9),
+    0 0 50px rgba(236, 72, 153, 0.3);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* POSITIONS */
+.tooltip:nth-child(1),
+.outro-tooltip:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.tooltip:nth-child(2),
+.outro-tooltip:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  align-self: end;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.tooltip:nth-child(3),
+.outro-tooltip:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.tooltip:nth-child(4),
+.outro-tooltip:nth-child(4) {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  align-self: end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* ICON */
+.tooltip .icon,
+.outro-tooltip .icon {
+  font-size: 2.5rem;
+  overflow: hidden;
+  line-height: 1;
+  height: 2.5rem;
+  color: #f472b6;
+}
+
+/* DIVIDER */
+.tooltip .divider,
+.outro-tooltip .divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(236, 72, 153, 0.0),
+    rgba(236, 72, 153, 0.7),
+    rgba(244, 114, 182, 0.9),
+    rgba(244, 114, 182, 0.0)
+  );
+  transform: scaleX(0);
+}
+
+/* Left grow */
+.tooltip:nth-child(1) .divider,
+.tooltip:nth-child(2) .divider,
+.outro-tooltip:nth-child(1) .divider,
+.outro-tooltip:nth-child(2) .divider {
+  transform-origin: left center;
+}
+
+/* Right grow */
+.tooltip:nth-child(3) .divider,
+.tooltip:nth-child(4) .divider,
+.outro-tooltip:nth-child(3) .divider,
+.outro-tooltip:nth-child(4) .divider {
+  transform-origin: right center;
+}
+
+/* TITLE */
+.tooltip .title,
+.outro-tooltip .title {
+  overflow: hidden;
+}
+
+.tooltip .title h2,
+.outro-tooltip .title h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  color: #fce7f3;
+}
+
+/* DESCRIPTION */
+.tooltip .description,
+.outro-tooltip .description {
+  overflow: hidden;
+  color: #f9a8d4;
+}
+
+.tooltip .description p,
+.outro-tooltip .description p {
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  line-height: 1.6;
+}
+
+/* OUTRO FINAL MESSAGE */
+.outro-final-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+
+  /* SUPER BLURRY BACKDROP */
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(35px) saturate(120%);
+  -webkit-backdrop-filter: blur(35px) saturate(120%);
+
+  /* Soft vignette */
+  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.6);
+}
+
+.outro-final-message h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  text-align: center;
+  max-width: 90%;
+  padding: 0 2rem;
+}
+
+/* TEXT ANIMATION WRAPPERS */
+.header-1 h1 .char,
+.outro-header-1 h1 .char,
+.tooltip .title .line,
+.tooltip .description .line,
+.outro-tooltip .title .line,
+.outro-tooltip .description .line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.header-1 h1 .char > span,
+.outro-header-1 h1 .char > span,
+.tooltip .icon ion-icon,
+.tooltip .title .line > span,
+.tooltip .description .line > span,
+.outro-tooltip .icon ion-icon,
+.outro-tooltip .title .line > span,
+.outro-tooltip .description .line > span {
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* TABLET RESPONSIVE - 768px to 1200px */
+@media (max-width: 1200px) {
+  .tooltips,
+  .outro-tooltips {
+    padding: 3rem 2.5rem;
+    gap: 2.5rem;
+  }
+
+  .tooltip,
+  .outro-tooltip {
+    max-width: 350px;
+    padding: 1.15rem 1.35rem;
+  }
+
+  .tooltip .icon,
+  .outro-tooltip .icon {
+    font-size: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .tooltip .title h2,
+  .outro-tooltip .title h2 {
+    font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  }
+
+  .tooltip .description p,
+  .outro-tooltip .description p {
+    font-size: clamp(0.88rem, 0.95vw, 1.05rem);
+  }
+}
+
+/* TABLET SMALL - 768px to 1000px */
+@media (max-width: 1000px) {
+  .header-1 h1,
+  .header-2 h1,
+  .outro-header-1 h1,
+  .outro-header-2 h1 {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  .tooltips,
+  .outro-tooltips {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 2.5rem 2rem;
+    gap: 2rem;
+  }
+
+  .tooltip,
+  .outro-tooltip {
+    width: 100%;
+    max-width: 100%;
+    justify-self: unset !important;
+    align-self: stretch !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .tooltip .icon,
+  .outro-tooltip .icon {
+    font-size: 2.15rem;
+    height: 2.15rem;
+  }
+
+  .tooltip .divider,
+  .outro-tooltip .divider {
+    width: 90%;
+    transform-origin: left center !important;
+  }
+
+  .tooltip .title h2,
+  .outro-tooltip .title h2 {
+    font-size: clamp(1.35rem, 5vw, 2rem);
+  }
+
+  .tooltip .description p,
+  .outro-tooltip .description p {
+    font-size: clamp(0.87rem, 3vw, 1rem);
+  }
+}
+
+/* MOBILE LANDSCAPE - 600px to 768px */
+@media (max-width: 768px) {
+  .intro h1,
+  .outro-final-message h1 {
+    font-size: clamp(1.75rem, 6.5vw, 3rem);
+    max-width: 95%;
+  }
+
+  .tooltips,
+  .outro-tooltips {
+    padding: 2rem 1.5rem;
+    gap: 1.75rem;
+  }
+
+  .tooltip,
+  .outro-tooltip {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .tooltip .icon,
+  .outro-tooltip .icon {
+    font-size: 2rem;
+    height: 2rem;
+  }
+
+  .tooltip .divider,
+  .outro-tooltip .divider {
+    width: 85%;
+  }
+}
+
+/* MOBILE PORTRAIT - Below 600px */
+@media (max-width: 600px) {
+
+  .header-1,
+  .outro-header-1 {
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .header-1 h1,
+  .outro-header-1 h1 {
+    text-align: center;
+    white-space: normal;
+  }
+
+  .intro h1,
+  .outro-final-message h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    padding: 0 1rem;
+  }
+
+  .header-1,
+  .header-2,
+  .outro-header-1,
+  .outro-header-2 {
+    padding: 0 1rem;
+  }
+
+  .header-1 h1,
+  .header-2 h1,
+  .outro-header-1 h1,
+  .outro-header-2 h1 {
+    font-size: clamp(2.8rem, 12vw, 5rem);
+  }
+
+  .tooltips,
+  .outro-tooltips {
+    padding: 1.5rem 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .tooltip,
+  .outro-tooltip {
+    width: 100%;
+    padding: 1rem 1.15rem;
+    gap: 0.65rem;
+  }
+
+  .tooltip .icon,
+  .outro-tooltip .icon {
+    font-size: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .tooltip .divider,
+  .outro-tooltip .divider {
+    width: 100%;
+    height: 1.5px;
+  }
+
+  .tooltip .title h2,
+  .outro-tooltip .title h2 {
+    font-size: clamp(1.25rem, 5.5vw, 1.75rem);
+  }
+
+  .tooltip .description p,
+  .outro-tooltip .description p {
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+    line-height: 1.55;
+  }
+}
+
+/* EXTRA SMALL MOBILE - Below 400px */
+@media (max-width: 400px) {
+  .intro h1,
+  .outro-final-message h1 {
+    font-size: clamp(1.25rem, 5.5vw, 2rem);
+  }
+
+  .tooltips,
+  .outro-tooltips {
+    padding: 1.25rem 1rem;
+    gap: 1.35rem;
+  }
+
+  .tooltip,
+  .outro-tooltip {
+    padding: 0.95rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .tooltip .icon,
+  .outro-tooltip .icon {
+    font-size: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .tooltip .title h2,
+  .outro-tooltip .title h2 {
+    font-size: clamp(1.15rem, 5vw, 1.5rem);
+  }
+
+  .tooltip .description p,
+  .outro-tooltip .description p {
+    font-size: clamp(0.82rem, 3.2vw, 0.9rem);
+  }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media (hover: none) and (pointer: coarse) {
+  .tooltip,
+  .outro-tooltip {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .tooltip,
+  .outro-tooltip {
+    min-height: auto;
+  }
+}
+
+/* HIGH DPI DISPLAYS */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .tooltip,
+  .outro-tooltip {
+    border-width: 0.5px;
+  }
+}
+
+/* SIMPLE OUTRO QUESTION */
+.outro-question{position:fixed;top:0;left:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;z-index:150;pointer-events:none;opacity:0;}
+.outro-question h1 .char{display:inline-block;overflow:hidden;}
+
+.outro-question h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  max-width: 90%;
+  color: #fce7f3;
+  text-shadow: 0 0 40px rgba(236,72,153,0.6);
+}
+
+
+
+
+/* ===============================
+   GLOBAL SOFT GRAIN
+================================ */
+
+/* ===============================
+   STRONG COLOR CLOUDS
+================================ */
+
+body::marker { content:""; } /* keeps some browsers happy */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -35%;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(180,80,255,0.65), transparent 60%),
+    radial-gradient(circle at 80% 25%, rgba(255,90,160,0.55), transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(90,0,140,0.7), transparent 65%);
+
+  filter: blur(200px);
+  opacity: 0.85;
+}
+
+
+/* ===============================
+   HEAVY FILM GRAIN
+================================ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(0,0,0,0) 0%,
+  rgba(0,0,0,1) 100%),
+
+
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+
+  opacity: 2;
+  mix-blend-mode: soft-light;
+}
+
+body::selection { background: transparent; }
+
+body::before,
+body::after {
+  will-change: transform;
+}
+
+body::marker { content:""; }
+
+body::after {
+  background-blend-mode: overlay;
+}
+
+body::before {
+  background-blend-mode: screen;
+}
+
+body::after {
+  background-blend-mode: soft-light;
+}
+
+.heart {
+  display: inline-block;
+  transform-origin: center;
+  animation: heartbeat 1.2s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px rgba(255,80,150,1));
+}
+
+/* Heartbeat animation */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.25);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.25);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+/* ===============================
+   PREMIUM ENVELOPE + PERFECT LETTER (V2)
+================================ */
+
+/* -------------------------------
+   ENVELOPE CLOSED
+-------------------------------- */
+
+.tooltip{
+  position:relative;
+  cursor:pointer;
+  overflow:hidden;
+  perspective:1600px;
+  border-radius:22px;
+
+  background:linear-gradient(145deg,#2b0a2b,#120012);
+  box-shadow:
+    inset 0 0 40px rgba(255,140,220,0.18),
+    0 25px 70px rgba(0,0,0,0.9);
+
+  transform-style:preserve-3d;
+  transition:
+    transform .7s cubic-bezier(.19,1,.22,1),
+    box-shadow .7s ease;
+}
+
+.tooltip:hover{
+  transform:translateY(-8px);
+  box-shadow:
+    0 0 50px rgba(255,90,180,.55),
+    0 35px 90px rgba(0,0,0,.95);
+}
+
+/* Envelope body */
+.tooltip::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#56205e,#1b001f);
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    50% 54%
+  );
+  opacity:.45;
+}
+
+/* Top flap */
+.tooltip::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,#8a3294,#3a083f);
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    50% 56%
+  );
+  transform-origin:top;
+  transform:rotateX(0deg);
+  transition:transform 1.3s cubic-bezier(.19,1,.22,1);
+  box-shadow:inset 0 -12px 22px rgba(0,0,0,.55);
+}
+
+/* Hide letter content */
+.tooltip .title,
+.tooltip .description,
+.tooltip .divider{
+  opacity:0;
+  transform:translateY(60px);
+  transition:
+    opacity 1s ease,
+    transform 1.1s cubic-bezier(.19,1,.22,1);
+}
+
+/* ===============================
+   OPENING
+================================ */
+
+.tooltip.open::after{
+  transform:rotateX(180deg);
+}
+
+.tooltip.open{
+  background:
+    linear-gradient(180deg,#fffaf4,#f1e3d4);
+ 
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.6);
+}
+
+/* Paper texture */
+.tooltip.open::before{
+  clip-path:none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* Reveal letter */
+.tooltip.open .title,
+.tooltip.open .description,
+.tooltip.open .divider{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Letter heading */
+.tooltip.open .title h2{
+  font-family: "Georgia", serif;
+  font-size:2rem;
+  text-align:center;
+  color:#5a002a;
+}
+
+/* Ink divider */
+.tooltip.open .divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,#7a1b5f,transparent);
+  margin:1.2rem 0 1.5rem;
+}
+
+/* Letter body */
+.tooltip.open .description p{
+  font-family:"Georgia",serif;
+  font-size:1rem;
+  line-height:1.9;
+  color:#3b001f;
+}
+
+/* Paper margin */
+.tooltip.open .description{
+  border-left:3px solid rgba(120,0,60,.3);
+  padding-left:.8rem;
+}
+
+/* Floating letter */
+.tooltip.open{
+  animation:letterFloat 6s ease-in-out infinite;
+}
+
+@keyframes letterFloat{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
+}
+
+/* ===============================
+   REMOVE ICON / WAX SEAL COMPLETELY
+================================ */
+
+.tooltip .icon {
+  display: none !important;
+}
+/* ===============================
+   LETTER CONTENT ALIGNMENT FIX
+================================ */
+
+.tooltip.open{
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers paper content block */
+}
+
+/* Create inner letter column */
+.tooltip.open .title,
+.tooltip.open .divider,
+.tooltip.open .description{
+  width: 100%;
+  max-width: 520px;      /* keeps beautiful reading width */
+}
+
+/* Heading */
+.tooltip.open .title h2{
+  text-align: center;
+  margin: 0 0 1.6rem 0;
+}
+
+/* Divider */
+.tooltip.open .divider{
+  margin: 0 auto 1.8rem;
+}
+
+/* Body container */
+.tooltip.open .description{
+  padding-left: 1rem;
+  border-left: 3px solid rgba(120,0,60,.3);
+}
+
+/* Paragraphs */
+.tooltip.open .description p{
+  text-align: left;
+  margin: 0 0 1.4rem 0;
+}
+
+/* Remove last paragraph gap */
+.tooltip.open .description p:last-child{
+  margin-bottom: 0;
+}
+/* ===============================
+   LETTER MICRO-PERFECTION
+================================ */
+
+/* Optical paper padding */
+.tooltip.open{
+  padding: 3.2rem 3rem;
+}
+
+/* Perfect reading column */
+.tooltip.open .title,
+.tooltip.open .divider,
+.tooltip.open .description{
+  max-width: 480px;
+}
+
+/* Heading refinement */
+.tooltip.open .title h2{
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+/* Divider thickness */
+.tooltip.open .divider{
+  height: 1px;
+}
+
+/* Paragraph baseline rhythm */
+.tooltip.open .description p{
+  line-height: 1.95;
+}
+
+/* First-line indent like real letters */
+.tooltip.open .description p{
+  text-indent: 0.6rem;
+}
+
+/* Remove indent for first paragraph */
+.tooltip.open .description p:first-child{
+  text-indent: 0;
+}
+
+/* Soft inner page shadow */
+.tooltip.open::before{
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.05),
+    inset 0 15px 30px rgba(0,0,0,0.04),
+    inset 0 -10px 25px rgba(0,0,0,0.06),
+    0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* Slight inner glow */
+.tooltip.open::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,0.12) 100%);
+}
+.tooltip.open{
+  background:
+    linear-gradient(180deg,#fffdf8,#f2e6d6),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.015),
+      rgba(0,0,0,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+/* ===============================
+   HARD FIX: TITLE ABOVE DIVIDER
+================================ */
+
+/* Lock vertical flow */
+.tooltip.open{
+  align-items: flex-start;
+}
+
+/* Title block spacing */
+.tooltip.open .title{
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+/* Title itself */
+.tooltip.open .title h2{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Divider always below title */
+.tooltip.open .divider{
+  width: 100%;
+  margin: 0 auto 1.6rem;
+  transform: none !important;
+}
+
+/* Safety: never overlap */
+.tooltip.open .title,
+.tooltip.open .divider{
+  position: relative;
+  z-index: 2;
+}
