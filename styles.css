@@ -765,7 +765,6 @@ opacity: 0;
   font-size: clamp(2rem, 5vw, 4rem);
   max-width: 90%;
   color: #fce7f3;
-  text-shadow: 0 0 40px rgba(236,72,153,0.6);
 }
 
 
