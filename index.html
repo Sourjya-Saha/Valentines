@@ -19,21 +19,60 @@
 </head>
 
 <body>
+  <!-- SVG Wave Paths (add to your HTML) -->
+<svg style="position: absolute; width: 0; height: 0;">
+  <defs>
+    <clipPath id="wave-top" clipPathUnits="objectBoundingBox">
+      <path d="M 0,0 L 0,0.7 Q 0.15,0.85 0.3,0.75 T 0.6,0.8 T 0.9,0.7 T 1,0.85 L 1,0 Z" />
+    </clipPath>
+    
+    <clipPath id="wave-bottom" clipPathUnits="objectBoundingBox">
+      <path d="M 0,1 L 0,0.3 Q 0.15,0.15 0.3,0.25 T 0.6,0.2 T 0.9,0.3 T 1,0.15 L 1,1 Z" />
+    </clipPath>
+    
+    <clipPath id="wave-stripe" clipPathUnits="objectBoundingBox">
+      <path d="M 0,0.2 Q 0.15,0.1 0.3,0.25 T 0.6,0.15 T 0.9,0.3 T 1,0.2 L 1,0.8 Q 0.85,0.9 0.7,0.75 T 0.4,0.85 T 0.1,0.7 T 0,0.8 Z" />
+    </clipPath>
+  </defs>
+</svg>
   <!-- Section 1: Intro -->
-  <section class="intro prominent-glass">
-   <h1>A Love Story <br> <br> Written in the Stars</h1>
-  </section>
+<section class="intro prominent-glass">
+  <div class="intro-wave">
+  <div class="wave-stripe"></div>
+  <div class="dark-overlay-top"></div>
+  <div class="dark-overlay-bottom"></div>
+  <div class="grain"></div>
+  
+<h1 class="hero-title">
+  <span class="love">Love</span>
+  <span class="connector">without a</span>
+  <span class="manual">Manual</span>
+</h1>
+
+
+
+</div>
+</section>
+
 
   <!-- Section 2: Product Overview with Animations -->
   <section class="product-overview">
+    <!-- Animated Wave Background -->
+    <div class="product-wave">
+      <div class="wave-stripe"></div>
+      <div class="dark-overlay-top"></div>
+      <div class="dark-overlay-bottom"></div>
+      <div class="grain"></div>
+    </div>
+
     <!-- Header 1: Slides in first -->
     <div class="header-1">
-      <h1>Once Upon a Time</h1>
+      <h1 >Lets Dive Right In</h1>
     </div>
 
     <!-- Header 2: Slides across screen -->
     <div class="header-2">
-      <h1>I Found You</h1>
+      <h1>Memoryy Lane ...</h1>
     </div>
 
     <!-- Black circular mask -->
@@ -48,12 +87,15 @@
         </div>
         <div class="divider"></div>
         <div class="title">
-          <h2>Lost & Broken</h2>
+          <h2>2021 - ∞</h2>
         </div>
         <div class="description">
           <p>
-            A heart wandering through endless nights, searching for something it couldn't name. Incomplete, yearning, waiting for a miracle.
+            A heart wandering through endless nights
           </p>
+             <a href="flower.html" target="_blank" class="tooltip-link">
+      I have something for you →
+    </a>
         </div>
       </div>
 
@@ -64,12 +106,15 @@
         </div>
         <div class="divider"></div>
         <div class="title">
-          <h2>Then You Appeared</h2>
+          <h2>School</h2>
         </div>
         <div class="description">
           <p>
-            Like a constellation lighting up the dark void. You became my north star, my guide, my everything I didn't know I needed.
+            Like a constellation lighting up the dark void.
           </p>
+            <a href="flower.html" target="_blank" class="tooltip-link">
+      I have something for you →
+    </a>
         </div>
       </div>
 
@@ -80,12 +125,15 @@
         </div>
         <div class="divider"></div>
         <div class="title">
-          <h2>You Healed Me</h2>
+          <h2>Birthdays</h2>
         </div>
         <div class="description">
           <p>
-            Every broken piece found its place. You showed me what love truly means - healing, growing, becoming whole together.
+            Every broken piece found its place. You showed me what .
           </p>
+            <a href="flower.html" target="_blank" class="tooltip-link">
+      I have something for you →
+    </a>
         </div>
       </div>
 
@@ -96,12 +144,15 @@
         </div>
         <div class="divider"></div>
         <div class="title">
-          <h2>Forever & Always</h2>
+          <h2>Festivals</h2>
         </div>
         <div class="description">
           <p>
-            In every universe, across every timeline, through every dimension - I would choose you. Will you be my Valentine?
+            In every universe, across every timeline.
           </p>
+            <a href="flower.html" target="_blank" class="tooltip-link">
+      I have something for you →
+    </a>
         </div>
       </div>
     </div>

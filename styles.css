@@ -26,6 +26,7 @@ body {
 }
 
 
+
 .prominent-glass {
   background:
     linear-gradient(
@@ -76,7 +77,6 @@ section {
   align-items: center;
   background: transparent;
   color: #2b2b2b;
-  padding: 2rem;
   height: 100vh;
 }
 
@@ -96,14 +96,16 @@ section {
 
 .intro h1 {
   position: relative;
+  width: 100%;
   text-align: center;
-  max-width: 90%;
   font-size: clamp(2.5rem, 6vw, 5rem);
-
   color: white;
 
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 
 /* PRODUCT OVERVIEW */
@@ -114,7 +116,194 @@ section {
   color: #fce7f3;
 }
 
-/* OUTRO - Same structure as product-overview */
+/* ===============================
+   PRODUCT WAVE BACKGROUND
+================================ */
+
+.product-wave {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+
+  background: 
+    linear-gradient(180deg, 
+      #8b4a9e 0%,
+      #9d5aae 20%,
+      #a865b5 40%,
+      #9d5aae 60%,
+      #8b4a9e 80%,
+      #7a3d8d 100%
+    );
+
+  opacity: 1;
+}
+
+/* Animated top wave section */
+.product-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 200%;
+  height: 42%;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  background: linear-gradient(
+    180deg,
+    #8b4a9e 0%,
+    #9d5aae 50%,
+    transparent 100%
+  );
+
+  clip-path: url('#wave-top');
+  animation: waveSlide 15s linear infinite;
+  will-change: transform;
+}
+
+
+/* Animated bottom wave section */
+/* Animated bottom wave section */
+.product-wave::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 200%;
+  height: 42%;
+  z-index: 1;
+
+  transform: translateX(-50%);
+
+  background: 
+    linear-gradient(0deg, 
+      #7a3d8d 0%,
+      #8b4a9e 50%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-bottom');
+  animation: waveSlideBaseBottom 12s linear infinite;
+  will-change: transform;
+}
+
+
+/* Animated light wavy stripe in the middle */
+.product-wave .wave-stripe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 275px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  clip-path: url('#wave-stripe');
+  animation: waveSlide 12s linear infinite;
+}
+
+
+/* Animated dark overlay on top wave */
+.product-wave .dark-overlay-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 200%;
+  height: 50%;
+  z-index: 3;
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    transparent 100%
+  );
+
+  clip-path: url('#wave-top');
+  animation: waveSlideOverlayTop 15s linear infinite;
+  will-change: transform;
+}
+
+
+/* Animated dark overlay on bottom wave */
+.product-wave .dark-overlay-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 200%;
+  height: 50%;
+  z-index: 3;
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    transparent 100%
+  );
+
+  clip-path: url('#wave-bottom');
+  animation: waveSlideOverlayBottom 12s linear infinite;
+  will-change: transform;
+}
+
+/* Grain texture for product wave */
+.product-wave .grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='8'/%3E%3CfeColorMatrix values='1 0 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 1.5 0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+
+/* Wave animation keyframes */
+@keyframes waveSlideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(25%);
+  }
+}
+@keyframes waveSlideOverlayTop {
+  from {
+    transform: translateX(-50%) translateX(-12.5%);
+  }
+  to {
+    transform: translateX(-50%) translateX(12.5%);
+  }
+}
+
+@keyframes waveSlideOverlayBottom {
+  from {
+    transform: translateX(-50%) translateX(12.5%);
+  }
+  to {
+    transform: translateX(-50%) translateX(-12.5%);
+  }
+}
+@keyframes waveSlideBaseBottom {
+  from {
+    transform: translateX(-50%) translateX(-12.5%);
+  }
+  to {
+    transform: translateX(-50%) translateX(12.5%);
+  }
+}
+
+
+/* OUTRO - Same structure as product overview */
 .outro {
   position: relative;
   height: 100vh;
@@ -176,27 +365,30 @@ opacity: 0;
 
 /* HEADER 1 - Product Overview */
 .header-1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 2rem;
-  z-index: 0;
-  background: radial-gradient(circle at top left, #0d0510 0, #0d0510 40%, #000 100%);
-  overflow: hidden;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 200vw;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding: 0 2rem;
+
+   overflow: hidden;
+   z-index: 20;
 }
+
 .header-1 h1 {
-  font-size: clamp(10rem, 15vw, 16.5rem);
+  font-size: clamp(8rem, 14vw, 15rem);
   line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  color: #fce7f3;
-
+   color: #6b0023;
+ font-family: Georgia;
+ font-style: italic;
   flex-shrink: 0;
+
 }
 
 
@@ -245,7 +437,11 @@ opacity: 0;
   letter-spacing: -0.02em;
   white-space: nowrap;
   text-align: center;
-  color: transparent;
+  color: whitesmoke;
+  font-family: "Canela", Georgia, serif;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   background-image: linear-gradient(
     120deg,
     #f472b6,
@@ -255,8 +451,7 @@ opacity: 0;
     #f472b6
   );
   background-clip: text;
-  -webkit-background-clip: text;
-  filter: drop-shadow(0 0 32px rgba(236, 72, 153, 0.7));
+
 }
 
 /* OUTRO HEADER 2 - Same gradient styling */
@@ -778,7 +973,7 @@ opacity: 0;
    STRONG COLOR CLOUDS
 ================================ */
 
-body::marker { content:""; } /* keeps some browsers happy */
+body::marker { content:""; }
 body::before {
   content: "";
   position: fixed;
@@ -1027,7 +1222,7 @@ body::after {
 .tooltip.open{
   display: flex;
   flex-direction: column;
-  align-items: center;   /* centers paper content block */
+  align-items: center;
 }
 
 /* Create inner letter column */
@@ -1035,7 +1230,7 @@ body::after {
 .tooltip.open .divider,
 .tooltip.open .description{
   width: 100%;
-  max-width: 520px;      /* keeps beautiful reading width */
+  max-width: 520px;
 }
 
 /* Heading */
@@ -1172,4 +1367,269 @@ body::after {
 .tooltip.open .divider{
   position: relative;
   z-index: 2;
+}
+.intro-wave {
+  width: 100%;
+  position: relative;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  background: 
+    linear-gradient(180deg, 
+      #8b4a9e 0%,
+      #9d5aae 20%,
+      #a865b5 40%,
+      #9d5aae 60%,
+      #8b4a9e 80%,
+      #7a3d8d 100%
+    );
+}
+
+/* Top dark wave section */
+.intro-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 42%;
+  z-index: 1;
+
+  background: 
+    linear-gradient(180deg, 
+      #8b4a9e 0%,
+      #9d5aae 50%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-top');
+}
+
+/* Bottom dark wave section */
+.intro-wave::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 42%;
+  z-index: 1;
+
+  background: 
+    linear-gradient(0deg, 
+      #7a3d8d 0%,
+      #8b4a9e 50%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-bottom');
+}
+
+/* Light wavy stripe in the middle */
+.intro-wave .wave-stripe {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 275px;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  background: 
+    radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(240, 200, 255, 0.9) 30%,
+      rgba(200, 150, 220, 0.8) 70%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-stripe');
+}
+
+/* Dark overlay on top wave */
+.intro-wave .dark-overlay-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  z-index: 3;
+
+  background: 
+    linear-gradient(180deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 40%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-top');
+}
+
+/* Dark overlay on bottom wave */
+.intro-wave .dark-overlay-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  z-index: 3;
+
+  background: 
+    linear-gradient(0deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.4) 40%,
+      transparent 100%
+    );
+
+  clip-path: url('#wave-bottom');
+}
+
+/* Heavy grain texture */
+.intro-wave .grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='8'/%3E%3CfeColorMatrix values='1 0 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 1.5 0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+
+  mix-blend-mode: overlay;
+  opacity: 0.85;
+}
+
+/* Text styling */
+.intro-wave h1 {
+  position: relative;
+  z-index: 5;
+  font-size: clamp(2rem, 6vw, 5rem);
+  text-align: center;
+  color: white;
+  text-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.hero-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap;
+  gap: 0.5ch;
+}
+
+
+.hero-title .love {
+  font-family: Georgia, serif;
+  font-style: italic;
+font-size: clamp(2.6rem, 6vw, 4.6rem);
+  letter-spacing: -0.06em;
+  color: #6b0023;
+}
+
+.hero-title .connector {
+  font-family: Georgia, serif;
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  margin: 0 0.4em;
+  opacity: 0.75;
+  color: #6b0023;
+}
+
+.hero-title .manual {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  letter-spacing: -0.05em;
+  color: #6b0023;
+}
+.hero-title span {
+  text-shadow:
+    0.5px 0.5px 0 rgba(107,0,35,0.25),
+   -0.5px -0.5px 0 rgba(107,0,35,0.15);
+}
+.hero-title {
+  background: linear-gradient(
+    180deg,
+    rgba(107,0,35,1),
+    rgba(140,0,50,0.85)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-title .love,
+.hero-title .manual {
+  transform: skewX(-6deg);
+  display: inline-block;
+}
+.hero-title span {
+  text-shadow:
+    0.6px 0.6px 0 rgba(90, 0, 30, 0.35),
+    1.2px 1.2px 0 rgba(60, 0, 20, 0.25),
+   -0.4px -0.4px 0 rgba(160, 40, 80, 0.25);
+}
+.hero-title .love {
+  transform: skewX(-6deg) translateY(-2px);
+}
+
+.hero-title .manual {
+  transform: skewX(-6deg) translateY(2px);
+}
+.hero-title .manual {
+  position: relative;
+}
+
+.hero-title .manual::after {
+  content: "";
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  bottom: 8%;
+
+  height: 1px;
+  background: rgba(107, 0, 35, 0.35);
+  filter: blur(0.5px);
+}
+.hero-title .connector {
+  letter-spacing: -0.02em;
+  transform: translateY(1px);
+}
+
+/* Tooltip anchor link */
+.tooltip-link {
+  margin-top: 1.2rem;
+  display: inline-block;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  color: #7a1b5f;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Underline animation */
+.tooltip-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: rgba(122, 27, 95, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.tooltip-link:hover {
+  color: #a8326f;
+}
+
+.tooltip-link:hover::after {
+  transform: scaleX(1);
 }
