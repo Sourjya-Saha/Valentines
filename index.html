@@ -19,6 +19,22 @@
 </head>
 
 <body>
+  <!-- Audio Player -->
+  <audio id="background-music" preload="auto">
+    <source src="lovemenot.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Audio Controls -->
+  <div class="audio-player">
+    <button class="audio-toggle" id="audio-toggle">
+      <ion-icon name="play" class="play-icon"></ion-icon>
+      <ion-icon name="pause" class="pause-icon"></ion-icon>
+    </button>
+    <div class="audio-visualizer">
+      <canvas id="visualizer-canvas"></canvas>
+    </div>
+  </div>
+
   <!-- SVG Wave Paths (add to your HTML) -->
 <svg style="position: absolute; width: 0; height: 0;">
   <defs>
@@ -72,7 +88,7 @@
 
     <!-- Header 2: Slides across screen -->
     <div class="header-2">
-      <h1>Memoryy Lane ...</h1>
+      <h1>Memory <span style="font-style: italic; color: pink ;   font-weight: 600;"> Lane</span> ...</h1>
     </div>
 
     <!-- Black circular mask -->
@@ -91,10 +107,10 @@
         </div>
         <div class="description">
           <p>
-            A heart wandering through endless nights
+            6 years of memories, laughter, and love.
           </p>
              <a href="flower.html" target="_blank" class="tooltip-link">
-      I have something for you →
+      Let's Revisit →
     </a>
         </div>
       </div>
@@ -110,10 +126,10 @@
         </div>
         <div class="description">
           <p>
-            Like a constellation lighting up the dark void.
+            Our best school days, filled with joy, love and laughter.
           </p>
-            <a href="flower.html" target="_blank" class="tooltip-link">
-      I have something for you →
+            <a href="flower2.html" target="_blank" class="tooltip-link">
+      Let's Revisit →
     </a>
         </div>
       </div>
@@ -129,10 +145,10 @@
         </div>
         <div class="description">
           <p>
-            Every broken piece found its place. You showed me what .
+            Us celebrating birthdays together, creating best moments.
           </p>
-            <a href="flower.html" target="_blank" class="tooltip-link">
-      I have something for you →
+            <a href="flower3.html" target="_blank" class="tooltip-link">
+      Let's Revisit →
     </a>
         </div>
       </div>
@@ -148,10 +164,10 @@
         </div>
         <div class="description">
           <p>
-            In every universe, across every timeline.
+            Our shared love for festivals, making every celebration special.
           </p>
-            <a href="flower.html" target="_blank" class="tooltip-link">
-      I have something for you →
+            <a href="flower4.html" target="_blank" class="tooltip-link">
+      Lets Revisit →
     </a>
         </div>
       </div>
@@ -167,19 +183,41 @@
 
   <!-- Soft Question -->
   <div class="outro-question">
-    <h1>So one last question arises after all...</h1>
+    <h1>So one last question ?</h1>
   </div>
 
   <!-- Outro 3D Model -->
   <div class="outro-model-container"></div>
+<div class="gift-model-container"></div>
+
 
   <!-- Final message overlay -->
 <div class="outro-final-message">
-  <h1>Will you be my Valentine? <span class="heart">❤️</span></h1>
+  <h1>Will <span style="  font-style: italic;
+  font-family: gerogia;
+  color: #dd206f;
+  font-weight: 600;"> you </span> be my<span style="  font-style: italic;
+  font-family: gerogia;
+  color: #ffb8d5;
+  font-weight: 600;"> Valentine ? </span>  <span class="heart">❤️</span></h1>
+<div class="valentine-actions">
+  <div class="yes-zone">
+    <button class="btn-yes">Yes ❤️</button>
+  </div>
+
+  <div class="no-zone">
+    <button class="btn-no">No 💔</button>
+  </div>
+</div>
+
+
+
+
 </div>
 
 
 </section>
+
 
   <!-- Icons -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -188,6 +226,9 @@
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Audio Player Script -->
+  <script src="./audio-player.js"></script>
 
   <!-- Main Script -->
   <script type="module" src="./script.js"></script>

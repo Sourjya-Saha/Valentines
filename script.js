@@ -27,6 +27,7 @@ window.addEventListener("load", () => {
   gsap.registerPlugin(ScrollTrigger);
   initializeApp();
 });
+let giftModel = null;
 
 function initializeApp() {
   console.log("🚀 App initialized");
@@ -613,6 +614,73 @@ setupOutroModel(outroHeart);
     );
   }
 
+// ========================================
+// GIFT SCENE SETUP
+// ========================================
+
+let giftSize;
+
+
+const giftScene = new THREE.Scene();
+const giftCamera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const giftRenderer = new THREE.WebGLRenderer({
+  antialias: true,
+  alpha: true,
+  powerPreference: "high-performance",
+});
+
+giftRenderer.setClearColor(0x000000, 0);
+giftRenderer.setSize(window.innerWidth, window.innerHeight);
+giftRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const giftContainer = document.querySelector(".gift-model-container");
+giftContainer.appendChild(giftRenderer.domElement);
+giftContainer.style.opacity = "0";
+giftContainer.style.visibility = "hidden";
+
+// Lights (same romantic setup)
+giftScene.add(new THREE.AmbientLight(0xfce7f3, 1.5));
+
+const giftKey = new THREE.DirectionalLight(0xf472b6, 2);
+giftKey.position.set(5, 5, 5);
+giftScene.add(giftKey);
+
+giftScene.add(new THREE.DirectionalLight(0xec4899, 1.2));
+giftScene.add(new THREE.DirectionalLight(0xfce7f3, 0.8));
+
+// Load gift.glb
+const giftLoader = new GLTFLoader();
+giftLoader.load("./gift.glb", (gltf) => {
+  giftModel = gltf.scene;
+
+  giftModel.traverse((n) => {
+    if (n.isMesh && n.material) {
+      n.material.metalness = 0.4;
+      n.material.roughness = 0.4;
+    }
+  });
+
+  const box = new THREE.Box3().setFromObject(giftModel);
+  giftSize = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+
+  giftModel.position.set(-center.x, -center.y, -center.z);
+
+  const maxDim = Math.max(giftSize.x, giftSize.y, giftSize.z);
+  const fov = giftCamera.fov * Math.PI / 180;
+  giftCamera.position.z = (maxDim / Math.tan(fov / 2)) * 1.8;
+giftCamera.lookAt(0, 0, 0);
+
+  giftScene.add(giftModel);
+});
+
+
   function setupOutroAnimations() {
     console.log("🎬 Setting up outro scroll animations...");
 
@@ -620,7 +688,7 @@ setupOutroModel(outroHeart);
      scrollTrigger: {
   trigger: ".outro",
   start: "top top",
-  end: "+=500%",
+  end: "+=100%",
   pin: true,
   scrub: 1,
   anticipatePin: 1,
@@ -794,6 +862,13 @@ outroScrollTL
   opacity: 1,
   duration: 1,
   ease: "power2.out",
+  onComplete: () => {
+    document
+      .querySelector(".outro-final-message")
+      .classList.add("active");
+
+    initNoButtonEscape();
+  }
 }, 8.5);
 
 
@@ -802,7 +877,7 @@ outroScrollTL
 ScrollTrigger.create({
   trigger: ".outro",
   start: "top top",
-  end: "+=500%",
+  end: "+=100%",
   scrub: 1,
   onUpdate: (self) => {
     const progress = self.progress;
@@ -821,10 +896,12 @@ ScrollTrigger.create({
 
   // Animation loop for both scenes
   function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    outroRenderer.render(outroScene, outroCamera);
-  }
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+  outroRenderer.render(outroScene, outroCamera);
+  giftRenderer.render(giftScene, giftCamera); // ✅ ADD THIS
+}
+
   animate();
   console.log("✅ Animation loops started");
 
@@ -846,8 +923,142 @@ ScrollTrigger.create({
       setupOutroModel(outroHeart);
     }
   });
+
+const yesBtn = document.querySelector(".btn-yes");
+
+yesBtn.addEventListener("click", () => {
+  if (!giftModel) {
+    console.warn("🎁 Gift model not ready yet");
+    return;
+  }
+
+  console.log("💖 YES clicked — revealing gift");
+
+  // Kill all ScrollTriggers (IMPORTANT)
+  ScrollTrigger.getAll().forEach(st => st.kill());
+
+  const outroContainer = document.querySelector(".outro-model-container");
+  const giftContainer = document.querySelector(".gift-model-container");
+
+  // Hide outro
+  gsap.to(outroContainer, {
+    opacity: 0,
+    duration: 0.5,
+    onComplete: () => {
+      outroContainer.style.visibility = "hidden";
+    }
+  });
+
+  // Show gift
+  giftContainer.style.visibility = "visible";
+  gsap.to(giftContainer, {
+    opacity: 1,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  // Reset gift transform
+const baseScale = isMobile() ? 0.8 : 1;
+gsap.set(giftModel.scale, {
+  x: baseScale,
+  y: baseScale,
+  z: baseScale
+});
+
+gsap.set(giftModel.rotation, { x: 0, y: 0, z: 0 });
+
+// 1️⃣ Idle romantic sway (separate tween)
+const idleSpin = gsap.to(giftModel.rotation, {
+  y: "+=0.5",
+  duration: 2,
+  repeat: -1,
+  yoyo: true,
+  ease: "sine.inOut"
+});
+
+// 2️⃣ Cinematic finale
+gsap.timeline({
+  onStart: () => {
+    idleSpin.kill(); // 🔥 stop idle before main animation
+  },
+  onComplete: () => {
+    window.location.href = "gift.html";
+  }
+})
+.to(giftModel.rotation, {
+  y: Math.PI * 4,
+  duration: 3,
+  ease: "none"
+})
+.to(giftModel.scale, {
+  x: isMobile() ? 6.5 : 8.5,
+  y: isMobile() ? 6.5 : 8.5,
+  z: isMobile() ? 6.5 : 8.5,
+  duration: 2,
+  ease: "power2.inOut"
+}, "-=1");
+
+});
+
 }
 
 // ===============================
 // ENVELOPE CLICK INTERACTION
 // ===============================
+
+function initNoButtonEscape() {
+  const noBtn = document.querySelector(".btn-no");
+  const yesBtn = document.querySelector(".btn-yes");
+
+  if (!noBtn || !yesBtn) return;
+
+  // Place No button initially next to Yes
+  const yesRect = yesBtn.getBoundingClientRect();
+  noBtn.style.left = `${yesRect.right + 40}px`;
+  noBtn.style.top = `${yesRect.top}px`;
+
+  function moveNoButton() {
+    const padding = 20;
+
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = window.innerWidth - btnRect.width - padding;
+    const maxY = window.innerHeight - btnRect.height - padding;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    const rotation = Math.random() * 120 - 60;
+    const scale = 0.85 + Math.random() * 0.6;
+
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+    noBtn.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+  }
+
+  // Desktop
+  noBtn.addEventListener("mouseenter", moveNoButton);
+
+  // Mobile (extra evil 😈)
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
+    setTimeout(moveNoButton, 120);
+  });
+
+// Desktop only proximity escape
+if (!isMobile()) {
+  document.addEventListener("mousemove", (e) => {
+    const rect = noBtn.getBoundingClientRect();
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 120) moveNoButton();
+  });
+}
+
+
+}
+
+
