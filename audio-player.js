@@ -1,4 +1,4 @@
-// Audio Player with Enhanced Waveform Visualizer (Mobile Optimized)
+// Audio Player with Enhanced Waveform Visualizer
 (function() {
   const audio = document.getElementById('background-music');
   const toggleBtn = document.getElementById('audio-toggle');
@@ -12,38 +12,16 @@
   let animationId;
   let isPlaying = false;
 
-  // ========================================
-  // MOBILE DETECTION
-  // ========================================
-  const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-  
-  // Mobile-specific settings
-  const CONFIG = {
-    barCount: IS_MOBILE ? 30 : 50,           // Fewer bars on mobile
-    fftSize: IS_MOBILE ? 256 : 512,          // Lower resolution on mobile
-    smoothing: IS_MOBILE ? 0.85 : 0.75,      // More smoothing on mobile
-    shadowBlur: IS_MOBILE ? 5 : 15,          // Less blur on mobile
-    pixelRatio: IS_MOBILE ? 1 : window.devicePixelRatio, // Lower DPI on mobile
-  };
-
-  console.log(`🎵 Audio player mode: ${IS_MOBILE ? 'MOBILE' : 'DESKTOP'}`);
-
   // Set canvas size
   function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * CONFIG.pixelRatio;
-    canvas.height = rect.height * CONFIG.pixelRatio;
-    ctx.scale(CONFIG.pixelRatio, CONFIG.pixelRatio);
+    canvas.width = rect.width * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
   }
 
   resizeCanvas();
-  
-  // Debounced resize for better performance
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(resizeCanvas, 100);
-  });
+  window.addEventListener('resize', resizeCanvas);
 
   // Initialize audio context and analyser
   function initAudio() {
@@ -57,9 +35,9 @@
     analyser.connect(audioContext.destination);
     
     // Enhanced settings for better frequency response
-    analyser.fftSize = CONFIG.fftSize;
-    analyser.smoothingTimeConstant = CONFIG.smoothing;
-    analyser.minDecibels = -85;
+    analyser.fftSize = 512; // Increased for more detail
+    analyser.smoothingTimeConstant = 0.75; // Smoother transitions
+    analyser.minDecibels = -85; // Better dynamic range
     analyser.maxDecibels = -20;
     
     bufferLength = analyser.frequencyBinCount;
@@ -72,28 +50,28 @@
     
     analyser.getByteFrequencyData(dataArray);
     
-    const width = canvas.width / CONFIG.pixelRatio;
-    const height = canvas.height / CONFIG.pixelRatio;
+    const width = canvas.width / window.devicePixelRatio;
+    const height = canvas.height / window.devicePixelRatio;
     
-    // Clear canvas completely
+    // Clear canvas completely (no trail effect for cleaner look)
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, width, height);
     
     // Draw bars with enhanced frequency mapping
-    const barCount = CONFIG.barCount;
+    const barCount = 50; // More bars for detail
     const barWidth = width / barCount;
-    const gap = IS_MOBILE ? 1 : 1.5;
+    const gap = 1.5;
     
     for (let i = 0; i < barCount; i++) {
       // Use logarithmic mapping for better bass/treble representation
       const percent = i / barCount;
       const exponentialPercent = Math.pow(percent, 1.5);
-      const dataIndex = Math.floor(exponentialPercent * bufferLength * 0.7);
+      const dataIndex = Math.floor(exponentialPercent * bufferLength * 0.7); // Focus on more audible range
       
       // Get frequency data with smoothing
       let value = dataArray[dataIndex];
       
-      // Apply frequency weighting
+      // Apply frequency weighting (boost mid-range, keep bass and treble)
       if (i < barCount * 0.2) {
         value *= 1.3; // Boost bass
       } else if (i < barCount * 0.6) {
@@ -133,8 +111,8 @@
       const y = height - barHeight;
       const actualBarWidth = barWidth - gap;
       
-      // Draw rounded bar with shadow (reduced on mobile)
-      ctx.shadowBlur = CONFIG.shadowBlur;
+      // Draw rounded bar with shadow
+      ctx.shadowBlur = 15;
       ctx.shadowColor = normalizedValue > 0.6 
         ? 'rgba(236, 72, 153, 0.8)' 
         : 'rgba(236, 72, 153, 0.4)';
@@ -143,8 +121,8 @@
       ctx.roundRect(x, y, actualBarWidth, barHeight, [3, 3, 0, 0]);
       ctx.fill();
       
-      // Add reflection effect at bottom (skip on mobile for performance)
-      if (!IS_MOBILE && barHeight > height * 0.3) {
+      // Add reflection effect at bottom
+      if (barHeight > height * 0.3) {
         ctx.shadowBlur = 0;
         const reflectionGradient = ctx.createLinearGradient(0, height, 0, height - 8);
         reflectionGradient.addColorStop(0, 'rgba(236, 72, 153, 0.3)');
@@ -156,36 +134,34 @@
       ctx.shadowBlur = 0;
     }
     
-    // Add center glow effect (skip on mobile for performance)
-    if (!IS_MOBILE) {
-      const centerGlow = ctx.createRadialGradient(width/2, height, 0, width/2, height, width/2);
-      centerGlow.addColorStop(0, 'rgba(236, 72, 153, 0.1)');
-      centerGlow.addColorStop(1, 'rgba(236, 72, 153, 0)');
-      ctx.fillStyle = centerGlow;
-      ctx.fillRect(0, 0, width, height);
-    }
+    // Add center glow effect
+    const centerGlow = ctx.createRadialGradient(width/2, height, 0, width/2, height, width/2);
+    centerGlow.addColorStop(0, 'rgba(236, 72, 153, 0.1)');
+    centerGlow.addColorStop(1, 'rgba(236, 72, 153, 0)');
+    ctx.fillStyle = centerGlow;
+    ctx.fillRect(0, 0, width, height);
   }
 
   // Enhanced idle state with more dynamic animation
   function drawIdle() {
     animationId = requestAnimationFrame(drawIdle);
     
-    const width = canvas.width / CONFIG.pixelRatio;
-    const height = canvas.height / CONFIG.pixelRatio;
+    const width = canvas.width / window.devicePixelRatio;
+    const height = canvas.height / window.devicePixelRatio;
     
     ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
     ctx.fillRect(0, 0, width, height);
     
-    const barCount = CONFIG.barCount;
+    const barCount = 50;
     const barWidth = width / barCount;
-    const gap = IS_MOBILE ? 1 : 1.5;
+    const gap = 1.5;
     const time = Date.now() * 0.0015;
     
     for (let i = 0; i < barCount; i++) {
-      // Create wave pattern (simplified on mobile)
+      // Create more complex wave pattern
       const wave1 = Math.sin(time + i * 0.2) * 6;
       const wave2 = Math.sin(time * 1.5 + i * 0.15) * 4;
-      const wave3 = IS_MOBILE ? 0 : Math.sin(time * 0.8 + i * 0.25) * 3;
+      const wave3 = Math.sin(time * 0.8 + i * 0.25) * 3;
       const waveHeight = wave1 + wave2 + wave3 + 15;
       
       const gradient = ctx.createLinearGradient(0, height - waveHeight, 0, height);
@@ -199,7 +175,7 @@
       const y = height - waveHeight;
       const actualBarWidth = barWidth - gap;
       
-      ctx.shadowBlur = IS_MOBILE ? 3 : 8;
+      ctx.shadowBlur = 8;
       ctx.shadowColor = 'rgba(236, 72, 153, 0.3)';
       
       ctx.beginPath();
@@ -209,14 +185,12 @@
       ctx.shadowBlur = 0;
     }
     
-    // Add subtle ambient glow (skip on mobile)
-    if (!IS_MOBILE) {
-      const ambientGlow = ctx.createRadialGradient(width/2, height, 0, width/2, height, width/2);
-      ambientGlow.addColorStop(0, 'rgba(236, 72, 153, 0.08)');
-      ambientGlow.addColorStop(1, 'rgba(236, 72, 153, 0)');
-      ctx.fillStyle = ambientGlow;
-      ctx.fillRect(0, 0, width, height);
-    }
+    // Add subtle ambient glow
+    const ambientGlow = ctx.createRadialGradient(width/2, height, 0, width/2, height, width/2);
+    ambientGlow.addColorStop(0, 'rgba(236, 72, 153, 0.08)');
+    ambientGlow.addColorStop(1, 'rgba(236, 72, 153, 0)');
+    ctx.fillStyle = ambientGlow;
+    ctx.fillRect(0, 0, width, height);
   }
 
   // Toggle play/pause
@@ -250,22 +224,13 @@
       }
     } catch (error) {
       console.error('Audio playback error:', error);
-      
-      // Fallback: try again without seek on mobile
-      if (IS_MOBILE && error.name === 'NotAllowedError') {
-        console.log('Mobile autoplay blocked - waiting for user interaction');
-      }
     }
   }
 
   // Auto-play on page load with user interaction fallback
   function attemptAutoplay() {
     initAudio();
-    
-    // Skip the 20-second seek on mobile (can cause issues)
-    if (!IS_MOBILE) {
-      audio.currentTime = 20;
-    }
+    audio.currentTime = 20;
     
     const playPromise = audio.play();
     
@@ -275,10 +240,9 @@
           isPlaying = true;
           toggleBtn.classList.add('playing');
           drawVisualizer();
-          console.log('✅ Audio autoplay successful');
         })
         .catch((error) => {
-          console.log('⚠️ Autoplay prevented, waiting for user interaction');
+          console.log('Autoplay prevented, waiting for user interaction');
           // Draw idle state while waiting
           drawIdle();
         });
@@ -292,16 +256,14 @@
   audio.addEventListener('ended', () => {
     isPlaying = false;
     toggleBtn.classList.remove('playing');
-    if (!IS_MOBILE) {
-      audio.currentTime = 20;
-    }
+    audio.currentTime = 20;
     cancelAnimationFrame(animationId);
     drawIdle();
   });
 
   // Attempt autoplay after a short delay
   window.addEventListener('load', () => {
-    setTimeout(attemptAutoplay, IS_MOBILE ? 1000 : 500); // Longer delay on mobile
+    setTimeout(attemptAutoplay, 500);
   });
 
   // Fallback: try autoplay on first user interaction
@@ -310,43 +272,13 @@
     if (!userInteracted && !isPlaying) {
       userInteracted = true;
       attemptAutoplay();
-      console.log('🎵 Audio started after user interaction');
     }
   }
 
-  // Multiple interaction events for better mobile support
-  const interactionEvents = ['click', 'touchstart', 'touchend', 'keydown'];
-  interactionEvents.forEach(eventType => {
-    document.addEventListener(eventType, handleFirstInteraction, { 
-      once: true,
-      passive: true 
-    });
-  });
-
-  // ========================================
-  // MOBILE-SPECIFIC: Prevent audio interruption
-  // ========================================
-  if (IS_MOBILE) {
-    // Resume audio context on visibility change (mobile browsers pause it)
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && audioContext && audioContext.state === 'suspended') {
-        audioContext.resume().then(() => {
-          console.log('🔊 Audio context resumed');
-        });
-      }
-    });
-
-    // Handle iOS audio session interruptions
-    audio.addEventListener('pause', () => {
-      if (isPlaying && audioContext && audioContext.state === 'running') {
-        // Audio was paused by system, not user
-        console.log('⚠️ Audio paused by system');
-      }
-    });
-  }
+  document.addEventListener('click', handleFirstInteraction, { once: true });
+  document.addEventListener('touchstart', handleFirstInteraction, { once: true });
+  document.addEventListener('keydown', handleFirstInteraction, { once: true });
 
   // Start with idle animation
   drawIdle();
-
-  console.log('✅ Audio player initialized');
 })();
